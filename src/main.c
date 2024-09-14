@@ -8,7 +8,8 @@
 
 volatile bool wake_up = false;
 volatile uint16_t sleep_cycles = 0;
-const uint16_t target_cycles = (15 * 60) / 8; // 15min divided by 8sec from the WDT
+// Test: 1.8min before planned
+const uint16_t target_cycles = (60 * 60) / 8;  // 15min divided by 8sec from the WDT
 
 // Setup watchdog timer
 void setup_wdt()
@@ -16,8 +17,9 @@ void setup_wdt()
     cli();  // Disable interrupts
     wdt_reset();
 
-    WDTCSR |= (1 << WDCE) | (1 << WDE);   // Enable configuration mode
-    WDTCSR = (1 << WDIE) | (1 << WDP3) | (1 << WDP0);  // Enable Interrupt mode, Set prescaler to 8 seconds
+    WDTCSR |= (1 << WDCE) | (1 << WDE);  // Enable configuration mode
+    WDTCSR = (1 << WDIE) | (1 << WDP3) |
+             (1 << WDP0);  // Enable Interrupt mode, Set prescaler to 8 seconds
 
     sei();  // Enable interrupts
 }
@@ -61,7 +63,7 @@ int main(void)
             wake_up = false;
             continue;
         }
-        
+
         sleep();
     }
 }
