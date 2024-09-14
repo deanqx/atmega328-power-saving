@@ -1,0 +1,8 @@
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+AllowShortFunctionsOnASingleLine: false
+ColumnLimit: 100
+BreakBeforeBraces: Allman
+PointerAlignment: Left
